@@ -9,7 +9,13 @@ import { Button } from "@repo/ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-async function getOnRampTransactions() {
+async function getOnRampTransactions() : Promise<{
+    time: Date;
+    amount: number;
+    status: 'Success' | 'Failure' | 'Processing';
+    provider: string;
+    token: string;
+}[]> {
     const session = await getServerSession(authOptions);
     const txns = await prisma.onRampTransaction.findMany({
         where: {
