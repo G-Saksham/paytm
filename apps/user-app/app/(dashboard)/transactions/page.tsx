@@ -21,19 +21,22 @@ async function getP2PTransactions() {
     return txns;   
 }
 
-async function getOnRampTransactions() {
+async function getOnRampTransactions(): Promise<{
+    id: number;
+    status: 'Success' | 'Processing' | 'Failure';
+    token: string;
+    provider: string;
+    amount: number;
+    startTime: Date;
+    userId: number;
+}[]> {
     const session = await getServerSession(authOptions);
     const txns = await prisma.onRampTransaction.findMany({
         where: {
             userId: Number(session?.user?.id)
         }
     });
-    return txns.map(t => ({
-        time: t.startTime,
-        amount: t.amount,
-        status: t.status,
-        provider: t.provider
-    }))
+    return txns
 }
 
 const getUserInfo = async () => {

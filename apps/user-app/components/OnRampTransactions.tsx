@@ -8,10 +8,13 @@ export const OnRampTransactions = ({
     title
 } : {
     transactions: {
-        time: Date,
-        amount: number,
-        status: Status,
-        provider: string
+        id: number;
+        status: 'Success' | 'Processing' | 'Failure';
+        token: string;
+        provider: string;
+        amount: number;
+        startTime: Date;
+        userId: number;
     }[],
     title: string
 }) => {
@@ -39,8 +42,8 @@ export const OnRampTransactions = ({
                                     Initiated
                                 </div>
                                 <div className="text-slate-600 text-xs p-1 pl-0">
-                                    {t.time.toLocaleTimeString('en-US')} {" "}
-                                    {t.time.toDateString()}
+                                    {t.startTime.toLocaleTimeString('en-US')} {" "}
+                                    {t.startTime.toDateString()}
                                 </div>
                             </div>
                             <div className="flex justify-center flex-col">
@@ -62,8 +65,8 @@ export const OnRampTransactions = ({
                                     Initiated
                                 </div>
                                 <div className="text-slate-600 text-xs p-1 pl-0">
-                                    {t.time.toLocaleTimeString('en-US')} {" "}
-                                    {t.time.toDateString()}
+                                    {t.startTime.toLocaleTimeString('en-US')} {" "}
+                                    {t.startTime.toDateString()}
                                 </div>
                             </div>
                             <div className="flex justify-center flex-col">
@@ -85,8 +88,8 @@ export const OnRampTransactions = ({
                                     Initiated
                                 </div>
                                 <div className="text-slate-600 text-xs p-1 pl-0">
-                                    {t.time.toLocaleTimeString('en-US')} {" "}
-                                    {t.time.toDateString()}                                   
+                                    {t.startTime.toLocaleTimeString('en-US')} {" "}
+                                    {t.startTime.toDateString()}                                   
                                 </div>
                             </div>
                             <div className="flex justify-center flex-col">
