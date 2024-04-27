@@ -46,7 +46,6 @@ export const AddMoney = () => {
                 <Button onClick = {
                     async () => {
                         await createOnRampTransaction(provider, amount)
-                        return null
                     }
                 }> Add Money to Wallet
                 </Button>

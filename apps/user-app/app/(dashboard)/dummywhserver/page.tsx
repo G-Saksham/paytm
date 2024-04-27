@@ -4,17 +4,16 @@ import { DummyCard } from "../../../components/DummyCard"
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 import prisma from "@repo/db/client"
-import { BalanceCard } from "../../../components/BalanceCard";
-import { Button } from "@repo/ui/button";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-async function getOnRampTransactions() : Promise<{
-    time: Date;
-    amount: number;
-    status: 'Success' | 'Failure' | 'Processing';
-    provider: string;
+async function getOnRampTransactions(): Promise<{
+    id: number;
+    status: 'Success' | 'Processing' | 'Failure';
     token: string;
+    provider: string;
+    amount: number;
+    startTime: Date;
+    userId: number;
 }[]> {
     const session = await getServerSession(authOptions);
     const txns = await prisma.onRampTransaction.findMany({
@@ -22,13 +21,7 @@ async function getOnRampTransactions() : Promise<{
             userId: Number(session?.user?.id)
         }
     });
-    return txns.map(t => ({
-        time: t.startTime,
-        amount: t.amount,
-        status: t.status,
-        provider: t.provider,
-        token: t.token
-    }))
+    return txns
 }
 
 async function getUserInfo() {
@@ -53,7 +46,6 @@ async function getBalance() {
 export default async function () {
     const balance = await getBalance();
     const transactions = (await getOnRampTransactions()).reverse();
-    const user = await getUserInfo()
 
     return (
         <div className="p-4 w-screen">
@@ -63,11 +55,8 @@ export default async function () {
             <div className="flex justify-end m-2 mt-0 mb-6 text-sm text-vi font-medium">
                 <Link className="hover:underline" href="/dashboard">Go back to Dashboard</Link>
             </div>
-            <div className="mb-4">
-                {/* <BalanceCard amount={balance.amount} locked={balance.locked} /> */}
-            </div>
             <div>
-                <DummyCard transactions={transactions} user={user} key={user.id}/>
+                <DummyCard transactions={transactions}/>
             </div>
         </div>
     )
