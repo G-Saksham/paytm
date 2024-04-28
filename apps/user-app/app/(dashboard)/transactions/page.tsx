@@ -14,10 +14,6 @@ async function getP2PTransactions() {
             ]
         }
     });
-    const toTxns = await prisma.p2PTransaction.findMany({
-        where: {toUserId: Number(userId)}
-    })
-    const comTxn = [txns, toTxns]
     return txns;   
 }
 

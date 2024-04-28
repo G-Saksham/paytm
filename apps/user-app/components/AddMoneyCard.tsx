@@ -23,7 +23,6 @@ export const AddMoney = () => {
     const router = useRouter()
     const [amount, setAmount] = useState(0.00)
     const [provider, setProvider] = useState(SUPPORTED_BANKS[0]?.name || "Default Bank")
-    const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
     return <Card title="Add Money">
         <div className="w-full">
             <TextInput type="number" label={"Amount"} placeholder={"Amount"} onChange={(value) => {
@@ -35,7 +34,6 @@ export const AddMoney = () => {
             <Select 
                 onSelect={(value) => {
                     setProvider(value)
-                    setRedirectUrl(SUPPORTED_BANKS.find(x => x.name === value)?.redirectUrl || "")
                 }} 
                 options={SUPPORTED_BANKS.map(x => ({
                     key: x.name,

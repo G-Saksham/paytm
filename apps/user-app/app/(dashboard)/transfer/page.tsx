@@ -29,12 +29,7 @@ async function getOnRampTransactions() {
             id: "desc"
         }
     });
-    return txns.map(t => ({
-        time: t.startTime,
-        amount: t.amount,
-        status: t.status,
-        provider: t.provider
-    }))
+    return txns
 }
 
 export default async function() {

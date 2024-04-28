@@ -1,7 +1,6 @@
 "use client"
 
 import { Card } from "@repo/ui/card"
-import { Status } from "./DummyCard"
 
 export const OnRampTransactions = ({
     transactions,

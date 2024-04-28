@@ -24,27 +24,7 @@ async function getOnRampTransactions(): Promise<{
     return txns
 }
 
-async function getUserInfo() {
-    const session = await getServerSession(authOptions)
-    const user = session?.user
-    return user
-}
-
-async function getBalance() {
-    const session = await getServerSession(authOptions);
-    const balance = await prisma.balance.findFirst({
-        where: {
-            userId: Number(session?.user?.id)
-        }
-    });
-    return {
-        amount: balance?.amount || 0,
-        locked: balance?.locked || 0
-    }
-}
-
 export default async function () {
-    const balance = await getBalance();
     const transactions = (await getOnRampTransactions()).reverse();
 
     return (
