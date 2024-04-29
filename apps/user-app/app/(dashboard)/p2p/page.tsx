@@ -5,6 +5,9 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../../lib/auth"
 import { P2PTransactions } from "../../../components/P2PTransactions"
 
+
+
+
 async function getBalance() {
     const session = await getServerSession(authOptions);
     const balance = await prisma.balance.findFirst({
