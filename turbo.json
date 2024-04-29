@@ -4,12 +4,6 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["DATABASE_URL"],
-      "outputs": [".next/**", "!.next/cache/**"]
-    },
-    "docs#build": {
-      "dependsOn": ["^build"],
-      "env": ["JWT_SECRET", "NEXTAUTH_URL"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
